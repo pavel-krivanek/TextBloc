@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #initialization }
+TextBlocMorphicHost >> characterExtent [
+
+	^ 8@12
+]
+
+{ #category : #initialization }
 TextBlocMorphicHost >> createHostSpaceFor: aSpace [
 
 	| aWindow aHostSpace|
@@ -32,7 +38,7 @@ TextBlocMorphicHost >> createMorphicWindowFor: aSpace [
 	| aWindow |
 
 	aWindow := TextBlocMorphicWindow new.
-	aWindow spaceExtent: aSpace extent*8.
+	aWindow spaceExtent: aSpace extent * self characterExtent.
 	"aWindow borderless: aSpace borderless."
 
 	^ aWindow

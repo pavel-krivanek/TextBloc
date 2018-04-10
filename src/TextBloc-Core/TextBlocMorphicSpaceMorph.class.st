@@ -11,7 +11,7 @@ Class {
 { #category : #accessing }
 TextBlocMorphicSpaceMorph >> drawOn: aCanvas [
 
-	super drawOn: aCanvas.
+"	super drawOn: aCanvas."
 	
 	aCanvas clipBy: self fullBounds during: [ :aClippedCanvas |
 		aClippedCanvas drawImage: form at: self position ] 
@@ -45,6 +45,5 @@ TextBlocMorphicSpaceMorph >> hostSpace: anObject [
 TextBlocMorphicSpaceMorph >> initialize [
 
 	super initialize.
-	
-	form := Form extent: 500@500 depth: 32. 
+	form := Form extent: self extent * 8 depth: 32. 
 ]

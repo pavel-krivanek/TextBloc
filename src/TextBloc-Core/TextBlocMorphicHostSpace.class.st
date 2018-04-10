@@ -89,7 +89,7 @@ TextBlocMorphicHostSpace >> render: aSpace [
 	| aForm |
 	self renderer render: aSpace.
 	aForm := self renderer surface form.
-	morphicWindow spaceForm form copy: (0@0 extent: 200@200) from: 0@0 in: aForm rule: Form over.
+	morphicWindow spaceForm form copy: (0@0 extent: aForm extent) from: 0@0 in: aForm rule: Form over.
 	morphicWindow spaceForm changed.
 	
 

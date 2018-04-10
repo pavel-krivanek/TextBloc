@@ -16,7 +16,7 @@ TextBlocRendererMorphicFormSurface class >> supportedBy: aClass [
 { #category : #rendering }
 TextBlocRendererMorphicFormSurface >> at: aPoint put: aCharacter [
 
-	aCharacter asString displayOn: form at: (aPoint-(1@1))*8
+	aCharacter asString displayOn: form at: (aPoint-(1@1)) * self hostSpace host characterExtent
 	
 ]
 
@@ -42,7 +42,7 @@ TextBlocRendererMorphicFormSurface >> initializeResourcesOn: aHostRenderer [
 	externalForm fillColor: Color transparent.
 "
 
-	form := Form extent: (200@200) depth: 32.
+	form := Form extent: (self hostSpace windowExtent) depth: 32.
 	form fillColor: Color white.
 	
 	self initializeOn: aHostRenderer

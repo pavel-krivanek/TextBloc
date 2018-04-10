@@ -1,5 +1,5 @@
 "
-element := BlElement new.
+element := TextBlocHelloElement new.
 
 space := BlSpace new.
 space extent: 50@50.
@@ -27,9 +27,9 @@ Class {
 	#superclass : #StandardWindow,
 	#instVars : [
 		'eventHandler',
-		'spaceForm',
 		'hostSpace',
-		'preventResize'
+		'preventResize',
+		'spaceMorph'
 	],
 	#category : #'TextBloc-Core-Morphic'
 }
@@ -53,7 +53,7 @@ TextBlocMorphicWindow >> hostSpace [
 TextBlocMorphicWindow >> hostSpace: aHostSpace [
 	
 	hostSpace := aHostSpace.
-	spaceForm hostSpace: aHostSpace.
+	spaceMorph hostSpace: aHostSpace.
 	
 	self initializeAnnouncement
 ]
@@ -62,8 +62,8 @@ TextBlocMorphicWindow >> hostSpace: aHostSpace [
 TextBlocMorphicWindow >> initialize [
 	super initialize.
 
-	spaceForm := TextBlocMorphicSpaceMorph new.
-	self addMorph: spaceForm fullFrame: (0@0 extent: 1@1).
+	spaceMorph := TextBlocMorphicSpaceMorph new.
+	self addMorph: spaceMorph fullFrame: (0@0 extent: 1@1).
 	eventHandler := TextBlocMorphicEventHandler window: self.
 	preventResize := false
 ]
@@ -73,11 +73,11 @@ TextBlocMorphicWindow >> initializeAnnouncement [
 	
 	self
 		onAnnouncement: WindowOpened
-		do: [ :evt | spaceForm startStepping ].
+		do: [ :evt | spaceMorph startStepping ].
 
 	self
 		onAnnouncement: WindowClosed
-		do: [ :evt | spaceForm stopStepping. "BlMorphicWindowCloseEvent new sentTo: eventHandler "].
+		do: [ :evt | spaceMorph stopStepping. "BlMorphicWindowCloseEvent new sentTo: eventHandler "].
 		
 	self
 		onAnnouncement: MorphGotFocus
@@ -101,7 +101,7 @@ TextBlocMorphicWindow >> isInSpaceArea: anEvent [
 	"Return true if given morphic event is within space area, false otherwise"
 	<return: #Boolean>
 	
-	^ spaceForm fullBounds containsPoint: anEvent position
+	^ spaceMorph fullBounds containsPoint: anEvent position
 ]
 
 { #category : #testing }
@@ -149,7 +149,7 @@ TextBlocMorphicWindow >> spaceExtent [
 	| aDelta |
 	
 	"we compute decorations extent first"
-	aDelta := self fullBounds extent - spaceForm extent.
+	aDelta := self fullBounds extent - spaceMorph extent.
 	^ self extent - aDelta
 ]
 
@@ -161,14 +161,14 @@ TextBlocMorphicWindow >> spaceExtent: anExtent [
 			ifFalse: [
 				| aDelta |
 				"we compute decorations extent first"
-				aDelta := self fullBounds extent - spaceForm extent.
+				aDelta := self fullBounds extent - spaceMorph extent.
 				super extent: anExtent + aDelta ] ]
 ]
 
 { #category : #geometry }
 TextBlocMorphicWindow >> spaceForm [
 
-	^ spaceForm
+	^ spaceMorph
 ]
 
 { #category : #testing }
@@ -176,7 +176,7 @@ TextBlocMorphicWindow >> spacePosition [
 	"Return position of space area"
 	<return: #Point>
 
-	^ spaceForm position
+	^ spaceMorph position
 ]
 
 { #category : #testing }

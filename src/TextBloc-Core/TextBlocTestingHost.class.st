@@ -40,6 +40,7 @@ TextBlocTestingHost >> createHostSpaceFor: aSpace [
 	aHostSpace := TextBlocTestingHostSpace new. 
 	aHostSpace host: self.
 	aHostSpace space: aSpace.
+	aHostSpace createDisplayMatrix. "maybe not the best place here"
 	aHostSpace withTextBlocRenderer.
 
 	aSpace hostSpace: aHostSpace.

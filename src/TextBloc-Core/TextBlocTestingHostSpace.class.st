@@ -21,6 +21,21 @@ TextBlocTestingHostSpace >> content [
 		displayMatrix do: [ :line | s nextPutAll: line; cr ] ]
 ]
 
+{ #category : #initialization }
+TextBlocTestingHostSpace >> createDisplayMatrix [
+
+	displayMatrix := (1 to: space height) collect: [ :y |
+		(1 to: space width) collect: [ :x | Character space ] ].
+
+
+]
+
+{ #category : #initialization }
+TextBlocTestingHostSpace >> displayMatrix [
+
+	^ displayMatrix
+]
+
 { #category : #'as yet unclassified' }
 TextBlocTestingHostSpace >> displaySurface: aSurface [
 
@@ -58,9 +73,6 @@ TextBlocTestingHostSpace >> initialize [
 	eventFetcher := BlHostEventFetcher new.
 	mutex := Mutex new.
 	
-	displayMatrix := (1 to: 20) collect: [ :y |
-		(1 to: 40) collect: [ :x | Character space ] ].
-
 
 ]
 
@@ -109,7 +121,7 @@ TextBlocTestingHostSpace >> renderer [
 { #category : #accessing }
 TextBlocTestingHostSpace >> show [
 	
-	^ dispalyMatrix
+	^ displayMatrix
 ]
 
 { #category : #'host space - accessing' }
@@ -149,7 +161,7 @@ TextBlocTestingHostSpace >> windowExtent [
 	on high dpi (retina) screens"
 	<return: #Point>
 
-	^ 100@100
+	^ 0@0 "TODO"
 ]
 
 { #category : #'host space - accessing' }

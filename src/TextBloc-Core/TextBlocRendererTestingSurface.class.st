@@ -15,7 +15,7 @@ TextBlocRendererTestingSurface class >> supportedBy: aClass [
 
 { #category : #rendering }
 TextBlocRendererTestingSurface >> at: aPoint put: aCharacter [
-
+ 
 	(displayMatrix at: aPoint y) at: aPoint x put: aCharacter.
 	
 ]
@@ -37,8 +37,12 @@ TextBlocRendererTestingSurface >> initializeOn: anObject [
 { #category : #initialization }
 TextBlocRendererTestingSurface >> initializeResourcesOn: aHostRenderer [
 
-	displayMatrix := (1 to: 20) collect: [ :y |
-		(1 to: 40) collect: [ :x | Character space ] ].
+	| hostMatrix |
+	
+	hostMatrix := self hostSpace displayMatrix.
+
+	displayMatrix := (1 to: hostMatrix size) collect: [ :y |
+		(1 to: hostMatrix anyOne size) collect: [ :x | $. ] ].
 		
 	self initializeOn: aHostRenderer
 ]
