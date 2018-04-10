@@ -165,6 +165,12 @@ TextBlocMorphicWindow >> spaceExtent: anExtent [
 				super extent: anExtent + aDelta ] ]
 ]
 
+{ #category : #geometry }
+TextBlocMorphicWindow >> spaceForm [
+
+	^ spaceForm
+]
+
 { #category : #testing }
 TextBlocMorphicWindow >> spacePosition [
 	"Return position of space area"

@@ -80,7 +80,13 @@ TextBlocHostSpace >> prepareToRender: aBlSpace onFormSurface: aBlHostRendererFor
 TextBlocHostSpace >> render: aSpace [
 	"Render a given abstract space on an underlying window or visual area"
 
-	self renderer render: aSpace
+	| aForm |
+	self renderer render: aSpace.
+	aForm := self renderer surface form.
+	morphicWindow spaceForm form copy: (0@0 extent: 200@200) from: 0@0 in: aForm rule: Form over.
+	morphicWindow spaceForm changed.
+	
+
 ]
 
 { #category : #'host space - accessing' }

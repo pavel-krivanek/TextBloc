@@ -1,6 +1,9 @@
 Class {
 	#name : #TextBlocRendererSurface,
 	#superclass : #BlHostRendererSurface,
+	#instVars : [
+		'form'
+	],
 	#category : #'TextBloc-Core'
 }
 
@@ -8,6 +11,19 @@ Class {
 TextBlocRendererSurface class >> supportedBy: aClass [ 
 	
 	^ false
+]
+
+{ #category : #rendering }
+TextBlocRendererSurface >> at: aPoint put: aCharacter [
+
+	aCharacter asString displayOn: form at: aPoint*8
+	
+]
+
+{ #category : #rendering }
+TextBlocRendererSurface >> form [
+
+	^ form
 ]
 
 { #category : #initialization }
@@ -25,6 +41,10 @@ TextBlocRendererSurface >> initializeResourcesOn: aHostRenderer [
 	externalForm allocateSpace.
 	externalForm fillColor: Color transparent.
 "
+
+	form := Form extent: (200@200) depth: 32.
+	form fillColor: Color white.
+	
 	self initializeOn: aHostRenderer
 ]
 

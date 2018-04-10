@@ -2,7 +2,8 @@ Class {
 	#name : #TextBlocSpaceMorph,
 	#superclass : #Morph,
 	#instVars : [
-		'hostSpace'
+		'hostSpace',
+		'form'
 	],
 	#category : #'TextBloc-Core'
 }
@@ -11,6 +12,9 @@ Class {
 TextBlocSpaceMorph >> drawOn: aCanvas [
 
 	super drawOn: aCanvas.
+	
+	aCanvas clipBy: self fullBounds during: [ :aClippedCanvas |
+		aClippedCanvas drawImage: form at: self position ] 
 	
 	"spaceForm := form.
 	spaceForm isNull
@@ -22,6 +26,12 @@ TextBlocSpaceMorph >> drawOn: aCanvas [
 ]
 
 { #category : #accessing }
+TextBlocSpaceMorph >> form [
+
+	^ form
+]
+
+{ #category : #accessing }
 TextBlocSpaceMorph >> hostSpace [
 	^ hostSpace
 ]
@@ -29,4 +39,12 @@ TextBlocSpaceMorph >> hostSpace [
 { #category : #accessing }
 TextBlocSpaceMorph >> hostSpace: anObject [
 	hostSpace := anObject
+]
+
+{ #category : #accessing }
+TextBlocSpaceMorph >> initialize [
+
+	super initialize.
+	
+	form := Form extent: 500@500 depth: 32. 
 ]
