@@ -9,6 +9,8 @@ BlElement >> drawChildrenOnTextBlocCanvas: aCanvas [
 { #category : #'*TextBloc-Core' }
 BlElement >> drawOnTextBlocCanvas: aCanvas [
 
+	aCanvas halt.
+
 
 ]
 

@@ -79,8 +79,8 @@ TextBlocHostSpace >> prepareToRender: aBlSpace onFormSurface: aBlHostRendererFor
 { #category : #'host space - rendering' }
 TextBlocHostSpace >> render: aSpace [
 	"Render a given abstract space on an underlying window or visual area"
-	
-	self lock critical: [ renderer render: aSpace ]
+
+	self renderer render: aSpace
 ]
 
 { #category : #'host space - accessing' }
