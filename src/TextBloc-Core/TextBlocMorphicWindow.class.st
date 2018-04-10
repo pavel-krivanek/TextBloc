@@ -31,7 +31,7 @@ Class {
 		'hostSpace',
 		'preventResize'
 	],
-	#category : #'TextBloc-Core'
+	#category : #'TextBloc-Core-Morphic'
 }
 
 { #category : #testing }
@@ -62,7 +62,7 @@ TextBlocMorphicWindow >> hostSpace: aHostSpace [
 TextBlocMorphicWindow >> initialize [
 	super initialize.
 
-	spaceForm := TextBlocSpaceMorph new.
+	spaceForm := TextBlocMorphicSpaceMorph new.
 	self addMorph: spaceForm fullFrame: (0@0 extent: 1@1).
 	eventHandler := TextBlocMorphicEventHandler window: self.
 	preventResize := false

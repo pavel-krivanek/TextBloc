@@ -1,21 +1,34 @@
 Class {
-	#name : #TextBlocHostSpace,
+	#name : #TextBlocTestingHostSpace,
 	#superclass : #Object,
 	#traits : 'TBlHostSpace',
 	#classTraits : 'TBlHostSpace classTrait',
 	#instVars : [
-		'morphicWindow',
+		'displayMatrix',
 		'host',
 		'renderer',
 		'space',
 		'eventFetcher',
 		'mutex'
 	],
-	#category : #'TextBloc-Core'
+	#category : #'TextBloc-Core-Testing'
 }
 
 { #category : #accessing }
-TextBlocHostSpace >> eventFetcher [
+TextBlocTestingHostSpace >> content [
+
+	^ String streamContents: [ :s |
+		displayMatrix do: [ :line | s nextPutAll: line; cr ] ]
+]
+
+{ #category : #'as yet unclassified' }
+TextBlocTestingHostSpace >> displaySurface: aSurface [
+
+	displayMatrix := aSurface displayMatrix.
+]
+
+{ #category : #accessing }
+TextBlocTestingHostSpace >> eventFetcher [
 	"Return event fetcher used to enqueue events that should be
 	processed in the beginning of every frame"
 	<return: #BlHostEventFetcher>
@@ -24,7 +37,7 @@ TextBlocHostSpace >> eventFetcher [
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> host [
+TextBlocTestingHostSpace >> host [
 	"Return a host that was used to create this host space"
 	<return: #BlHost>
 
@@ -32,44 +45,43 @@ TextBlocHostSpace >> host [
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> host: aBlHost [
+TextBlocTestingHostSpace >> host: aBlHost [
 	"Assign a host that was used to create this host space"
 	
 	host := aBlHost
 ]
 
 { #category : #initialization }
-TextBlocHostSpace >> initialize [
+TextBlocTestingHostSpace >> initialize [
 	super initialize.
 
 	eventFetcher := BlHostEventFetcher new.
 	mutex := Mutex new.
+	
+	displayMatrix := (1 to: 20) collect: [ :y |
+		(1 to: 40) collect: [ :x | Character space ] ].
+
 
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> lock [
+TextBlocTestingHostSpace >> lock [
 	^ mutex
 ]
 
-{ #category : #accessing }
-TextBlocHostSpace >> morphicWindow [
-	^ morphicWindow
-]
+{ #category : #'instance creation' }
+TextBlocTestingHostSpace >> newSurface [
 
-{ #category : #accessing }
-TextBlocHostSpace >> morphicWindow: aWindow [
-	morphicWindow := aWindow.
-	morphicWindow hostSpace: self
+	^ TextBlocRendererTestingSurface new
 ]
 
 { #category : #'host space - displaying' }
-TextBlocHostSpace >> open [
+TextBlocTestingHostSpace >> open [
 	self show
 ]
 
 { #category : #'host space - rendering' }
-TextBlocHostSpace >> prepareToRender: aBlSpace onFormSurface: aBlHostRendererFormSurface [
+TextBlocTestingHostSpace >> prepareToRender: aBlSpace onFormSurface: aBlHostRendererFormSurface [
 	"Prepare host space to a given space on a Form surface.
 	By default dispatch directly to the renderer"
 
@@ -77,20 +89,17 @@ TextBlocHostSpace >> prepareToRender: aBlSpace onFormSurface: aBlHostRendererFor
 ]
 
 { #category : #'host space - rendering' }
-TextBlocHostSpace >> render: aSpace [
+TextBlocTestingHostSpace >> render: aSpace [
 	"Render a given abstract space on an underlying window or visual area"
 
-	| aForm |
 	self renderer render: aSpace.
-	aForm := self renderer surface form.
-	morphicWindow spaceForm form copy: (0@0 extent: 200@200) from: 0@0 in: aForm rule: Form over.
-	morphicWindow spaceForm changed.
+	self displaySurface: self renderer surface.
 	
 
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> renderer [
+TextBlocTestingHostSpace >> renderer [
 	"Return host renderer used to render spaces"
 	<return: #TBlHostRenderer>
 
@@ -98,16 +107,13 @@ TextBlocHostSpace >> renderer [
 ]
 
 { #category : #accessing }
-TextBlocHostSpace >> show [
-	| anExtent |
+TextBlocTestingHostSpace >> show [
 	
-	anExtent := morphicWindow extent.
-	morphicWindow openInWorld.
-	morphicWindow extent: anExtent
+	^ dispalyMatrix
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> space [
+TextBlocTestingHostSpace >> space [
 	"Return a space I am assigned to"
 	<return: #BlSpace>
 
@@ -115,14 +121,14 @@ TextBlocHostSpace >> space [
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> space: aSpace [
+TextBlocTestingHostSpace >> space: aSpace [
 	"Assign me to a given space"
 
 	space := aSpace
 ]
 
 { #category : #'window - properties' }
-TextBlocHostSpace >> title [
+TextBlocTestingHostSpace >> title [
 	"Return window's title as a string"
 	<return: #String>
 
@@ -130,29 +136,30 @@ TextBlocHostSpace >> title [
 ]
 
 { #category : #'window - properties' }
-TextBlocHostSpace >> title: aString [
+TextBlocTestingHostSpace >> title: aString [
 	"Change window's title"
 
 	"ignore for now, TODO"
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> windowExtent [
+TextBlocTestingHostSpace >> windowExtent [
 	"Return the window size in screen coordinates.
 	This size may differ from the size in pixels of underlying surface 
 	on high dpi (retina) screens"
 	<return: #Point>
 
-	^ morphicWindow spaceExtent
+	^ 100@100
 ]
 
 { #category : #'host space - accessing' }
-TextBlocHostSpace >> windowExtent: anExtent [	
-	morphicWindow spaceExtent: anExtent
+TextBlocTestingHostSpace >> windowExtent: anExtent [	
+	
+	
 ]
 
 { #category : #'as yet unclassified' }
-TextBlocHostSpace >> withTextBlocRenderer [
+TextBlocTestingHostSpace >> withTextBlocRenderer [
 
 	renderer := TextBlocRenderer new.
 	renderer initializeHostSpace: self.

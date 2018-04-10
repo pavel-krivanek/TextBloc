@@ -1,19 +1,19 @@
 Class {
-	#name : #TextBlocHost,
+	#name : #TextBlocMorphicHost,
 	#superclass : #BlHost,
 	#instVars : [
 		'isRunning'
 	],
-	#category : #'TextBloc-Core'
+	#category : #'TextBloc-Core-Morphic'
 }
 
 { #category : #initialization }
-TextBlocHost >> createHostSpaceFor: aSpace [
+TextBlocMorphicHost >> createHostSpaceFor: aSpace [
 
-| aWindow aHostSpace|
+	| aWindow aHostSpace|
 
 	aWindow := self createMorphicWindowFor: aSpace.
-	aHostSpace := TextBlocHostSpace new. 
+	aHostSpace := TextBlocMorphicHostSpace new. 
 	aHostSpace morphicWindow: aWindow. 
 	aHostSpace host: self.
 	aHostSpace space: aSpace.
@@ -26,7 +26,7 @@ TextBlocHost >> createHostSpaceFor: aSpace [
 ]
 
 { #category : #initialization }
-TextBlocHost >> createMorphicWindowFor: aSpace [
+TextBlocMorphicHost >> createMorphicWindowFor: aSpace [
 	"Note, that I use given space only to find out what window properties to use for created window.
 	I do not create any strong or weak references to provided space"
 	| aWindow |
@@ -39,7 +39,7 @@ TextBlocHost >> createMorphicWindowFor: aSpace [
 ]
 
 { #category : #initialization }
-TextBlocHost >> destroyHostSpaceFor: aSpace [
+TextBlocMorphicHost >> destroyHostSpaceFor: aSpace [
 	"Destroys host space window of a given space.
 	Note: in most cases under 'destroy host space' we mean 'close host window' and unregister it"
 	
@@ -47,14 +47,14 @@ TextBlocHost >> destroyHostSpaceFor: aSpace [
 ]
 
 { #category : #initialization }
-TextBlocHost >> initialize [
+TextBlocMorphicHost >> initialize [
 	super initialize.
 	
 	isRunning := false
 ]
 
 { #category : #initialization }
-TextBlocHost >> isRunning [
+TextBlocMorphicHost >> isRunning [
 	"Return true if host is initialized and running"
 	<return: #Boolean>
 
@@ -62,11 +62,11 @@ TextBlocHost >> isRunning [
 ]
 
 { #category : #initialization }
-TextBlocHost >> start [
+TextBlocMorphicHost >> start [
 	isRunning := true
 ]
 
 { #category : #initialization }
-TextBlocHost >> stop [
+TextBlocMorphicHost >> stop [
 	isRunning := false
 ]

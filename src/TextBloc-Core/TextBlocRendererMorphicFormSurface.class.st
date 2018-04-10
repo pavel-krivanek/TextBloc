@@ -1,33 +1,33 @@
 Class {
-	#name : #TextBlocRendererSurface,
+	#name : #TextBlocRendererMorphicFormSurface,
 	#superclass : #BlHostRendererSurface,
 	#instVars : [
 		'form'
 	],
-	#category : #'TextBloc-Core'
+	#category : #'TextBloc-Core-Morphic'
 }
 
 { #category : #testing }
-TextBlocRendererSurface class >> supportedBy: aClass [ 
+TextBlocRendererMorphicFormSurface class >> supportedBy: aClass [ 
 	
 	^ false
 ]
 
 { #category : #rendering }
-TextBlocRendererSurface >> at: aPoint put: aCharacter [
+TextBlocRendererMorphicFormSurface >> at: aPoint put: aCharacter [
 
 	aCharacter asString displayOn: form at: aPoint*8
 	
 ]
 
 { #category : #rendering }
-TextBlocRendererSurface >> form [
+TextBlocRendererMorphicFormSurface >> form [
 
 	^ form
 ]
 
 { #category : #initialization }
-TextBlocRendererSurface >> initializeOn: anObject [
+TextBlocRendererMorphicFormSurface >> initializeOn: anObject [
 
 	anObject initializeForForm: self
 
@@ -35,7 +35,7 @@ TextBlocRendererSurface >> initializeOn: anObject [
 ]
 
 { #category : #initialization }
-TextBlocRendererSurface >> initializeResourcesOn: aHostRenderer [
+TextBlocRendererMorphicFormSurface >> initializeResourcesOn: aHostRenderer [
 	"externalForm := BlExternalForm extent: self canvasExtent depth: 32.
 	externalForm autoRelease.
 	externalForm allocateSpace.
@@ -49,14 +49,14 @@ TextBlocRendererSurface >> initializeResourcesOn: aHostRenderer [
 ]
 
 { #category : #rendering }
-TextBlocRendererSurface >> prepareToRender: aSpace [
+TextBlocRendererMorphicFormSurface >> prepareToRender: aSpace [
 	"Dispatch preparation to render through host space based on surface type"
 	
 	self hostSpace prepareToRender: aSpace onFormSurface: self
 ]
 
 { #category : #rendering }
-TextBlocRendererSurface >> renderFor: aSpace [
+TextBlocRendererMorphicFormSurface >> renderFor: aSpace [
 	"Dispatch render process through host space based on surface type"
 	
 	self hostSpace render: aSpace onFormSurface: self

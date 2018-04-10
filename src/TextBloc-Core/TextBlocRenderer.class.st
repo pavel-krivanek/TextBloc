@@ -33,7 +33,7 @@ TextBlocRenderer >> initializeForForm: aFormSurface [
 { #category : #initialization }
 TextBlocRenderer >> initializeHostSpace: aBlHostSpace [
 
-	surface := TextBlocRendererSurface new.
+	surface := aBlHostSpace newSurface.
 	surface initializeOn: aBlHostSpace
 ]
 

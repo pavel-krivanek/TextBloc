@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'window'
 	],
-	#category : #'TextBloc-Core'
+	#category : #'TextBloc-Core-Morphic'
 }
 
 { #category : #'as yet unclassified' }

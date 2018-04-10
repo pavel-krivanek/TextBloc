@@ -1,15 +1,15 @@
 Class {
-	#name : #TextBlocSpaceMorph,
+	#name : #TextBlocMorphicSpaceMorph,
 	#superclass : #Morph,
 	#instVars : [
 		'hostSpace',
 		'form'
 	],
-	#category : #'TextBloc-Core'
+	#category : #'TextBloc-Core-Morphic'
 }
 
 { #category : #accessing }
-TextBlocSpaceMorph >> drawOn: aCanvas [
+TextBlocMorphicSpaceMorph >> drawOn: aCanvas [
 
 	super drawOn: aCanvas.
 	
@@ -26,23 +26,23 @@ TextBlocSpaceMorph >> drawOn: aCanvas [
 ]
 
 { #category : #accessing }
-TextBlocSpaceMorph >> form [
+TextBlocMorphicSpaceMorph >> form [
 
 	^ form
 ]
 
 { #category : #accessing }
-TextBlocSpaceMorph >> hostSpace [
+TextBlocMorphicSpaceMorph >> hostSpace [
 	^ hostSpace
 ]
 
 { #category : #accessing }
-TextBlocSpaceMorph >> hostSpace: anObject [
+TextBlocMorphicSpaceMorph >> hostSpace: anObject [
 	hostSpace := anObject
 ]
 
 { #category : #accessing }
-TextBlocSpaceMorph >> initialize [
+TextBlocMorphicSpaceMorph >> initialize [
 
 	super initialize.
 	
