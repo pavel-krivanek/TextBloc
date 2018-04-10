@@ -56,31 +56,21 @@ BlElement >> fullDrawOnTextBlocCanvas: aCanvas [
 	self isVisible
 		ifFalse: [ ^ self ].
 
-	self drawOnTextBlocCanvas: aCanvas.
-	self drawChildrenOnTextBlocCanvas: aCanvas.
+	anEffectBounds := self geometryBounds.
+	"No need to render elements smaller than half of a pixel"
+	(anEffectBounds width min: anEffectBounds height) < 0.5
+		ifTrue: [ ^ self ].
+		
+	aCanvas transform
+		by: self transformation
+		translated: self position
+		during: [ :aTransformedCanvas |
 
+		aTransformedCanvas clip
+			when: [ self clipChildren ]
+			by: [ (self visualBounds: BlBounds new on: aTransformedCanvas) merge: anEffectBounds ]
+			during: [
+				self drawOnTextBlocCanvas: aTransformedCanvas.
+				self drawChildrenOnTextBlocCanvas: aTransformedCanvas ] ] 
 	
-"	aCanvas layer
-		alpha: self opacity;
-		when: [ self isTranslucent ]
-		during: [
-
-			aCanvas transform
-				by: self transformation
-				translated: self position
-				during: [ :aTransformedCanvas |
-
-					aTransformedCanvas clip
-						when: [ self clipChildren ]
-						by: [ (self visualBounds: BlBounds new on: aTransformedCanvas) merge: anEffectBounds ]
-						during: [
-							self effect
-								applyEffectOnSpartaCanvas: aTransformedCanvas
-								for: self
-								around: [
-									self drawOnSpartaCanvas: aTransformedCanvas.
-									self drawChildrenOnSpartaCanvas: aTransformedCanvas ] ].
-						misc debug ifTrue: [
-							self drawDebugInfoOnSpartaCanvas: aTransformedCanvas ] ] ]
-		"
 ]

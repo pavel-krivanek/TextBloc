@@ -2,7 +2,10 @@ Class {
 	#name : #TextBlocCanvas,
 	#superclass : #Object,
 	#instVars : [
-		'surface'
+		'surface',
+		'transformationStack',
+		'layerStack',
+		'currentTransformation'
 	],
 	#category : #'TextBloc-Core'
 }
@@ -18,8 +21,12 @@ TextBlocCanvas class >> on: aSurface [
 { #category : #accessing }
 TextBlocCanvas >> at: aPoint write: aString [
 
-	| pos | 
+	| pos| 
+	
 	pos := aPoint.
+	
+	transformationStack do: [ :each |
+		pos := each transform: pos ].
 	
 	aString do: [ :e | 
 		surface at: pos put: e.
@@ -59,9 +66,40 @@ TextBlocCanvas >> clipBuilder [
 	^ TextBlocClipper new
 ]
 
+{ #category : #accessing }
+TextBlocCanvas >> currentTransformation [
+	^ currentTransformation
+]
+
+{ #category : #accessing }
+TextBlocCanvas >> currentTransformation: anObject [
+	currentTransformation := anObject
+]
+
 { #category : #'drawing-general' }
 TextBlocCanvas >> fullDraw: anObject [
 	^ anObject fullDrawOnTextBlocCanvas: self
+]
+
+{ #category : #initialization }
+TextBlocCanvas >> initialize [
+	super initialize.
+	
+	transformationStack := Stack new.
+	layerStack := Stack new.
+	currentTransformation := SpartaMatrix new.
+]
+
+{ #category : #initialization }
+TextBlocCanvas >> popTransform [
+
+	^ transformationStack pop
+]
+
+{ #category : #initialization }
+TextBlocCanvas >> pushTransform: aSpartaMatrix [
+
+	transformationStack push: aSpartaMatrix
 ]
 
 { #category : #accessing }
@@ -72,4 +110,18 @@ TextBlocCanvas >> surface [
 { #category : #accessing }
 TextBlocCanvas >> surface: anObject [
 	surface := anObject
+]
+
+{ #category : #accessing }
+TextBlocCanvas >> transform [
+
+	^ self transformationBuilder
+		reset;
+		canvas: self;
+		yourself
+]
+
+{ #category : #accessing }
+TextBlocCanvas >> transformationBuilder [
+	^ TextBlocTransformationBuilder new
 ]
