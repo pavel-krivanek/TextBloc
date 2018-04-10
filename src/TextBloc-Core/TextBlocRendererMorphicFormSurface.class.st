@@ -16,8 +16,21 @@ TextBlocRendererMorphicFormSurface class >> supportedBy: aClass [
 { #category : #rendering }
 TextBlocRendererMorphicFormSurface >> at: aPoint put: aCharacter [
 
-	aCharacter asString displayOn: form at: (aPoint-(1@1)) * self hostSpace host characterExtent
+	| charForm canvas outCanvas pos |
 	
+	"SLOOOW temporary implementation"
+	
+	charForm := Form extent: self hostSpace host characterExtent depth: 32.
+	canvas := FormCanvas on: charForm.
+	canvas fillColor: Color white.
+	canvas drawString: aCharacter asString at: 0@0 font: StandardFonts codeFont color: Color red.
+	
+	outCanvas := FormCanvas on: form.
+	pos := (aPoint-(1@1)) * self hostSpace host characterExtent.	
+	outCanvas drawImage: charForm at: pos.
+	
+"	aCharacter asString displayOn: form at: (aPoint-(1@1)) * self hostSpace host characterExtent
+"	
 ]
 
 { #category : #rendering }

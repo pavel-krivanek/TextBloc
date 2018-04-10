@@ -10,7 +10,7 @@ Class {
 { #category : #initialization }
 TextBlocMorphicHost >> characterExtent [
 
-	^ 8@12
+	^ 8@16
 ]
 
 { #category : #initialization }
