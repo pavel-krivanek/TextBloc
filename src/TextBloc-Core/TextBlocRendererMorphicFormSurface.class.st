@@ -16,7 +16,7 @@ TextBlocRendererMorphicFormSurface class >> supportedBy: aClass [
 { #category : #rendering }
 TextBlocRendererMorphicFormSurface >> at: aPoint put: aCharacter [
 
-	aCharacter asString displayOn: form at: aPoint*8
+	aCharacter asString displayOn: form at: (aPoint-(1@1))*8
 	
 ]
 

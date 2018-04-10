@@ -10,7 +10,7 @@ universe pulseLoop: (CustomPulseLoop new
 	universe: universe;
 	yourself).
 
-host := TextBlocHost new.
+host := TextBlocMorphicHost new.
 space host: host.
 universe spaceManager addSpace: space.
 

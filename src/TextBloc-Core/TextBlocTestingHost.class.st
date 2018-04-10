@@ -1,3 +1,28 @@
+"
+element := BlElement new.
+
+space := BlSpace new.
+space extent: 50@50.
+space root addChild: element.
+
+universe := BlUniverse new.
+universe pulseLoop: (CustomPulseLoop new 
+	universe: universe;
+	yourself).
+
+host := TextBlocTestingHost new.
+space host: host.
+universe spaceManager addSpace: space.
+
+space host createHostSpaceFor: space.
+space hostSpace show.
+
+space dispatchEvent: (BlSpaceShownEvent new space: universe).
+universe pulseLoop firePulse.
+""universe start.""
+
+space hostSpace content
+"
 Class {
 	#name : #TextBlocTestingHost,
 	#superclass : #BlHost,
