@@ -1,25 +1,23 @@
 "
 element := BlElement new.
 
-universe := BlUniverse new.
-universe start.
-
-universe spaceManager hasSpaces.
-
 space := BlSpace new.
 space extent: 50@50.
+space root addChild: element.
+
+universe := BlUniverse new.
 
 host := TextBlocHost new.
 space host: host.
 universe spaceManager addSpace: space.
 
-host createHostSpaceFor: space.
+space host createHostSpaceFor: space.
+space hostSpace show.
 
-space root addChild: element.
+universe start.
+space dispatchEvent: (BlSpaceShownEvent new space: universe).
 
-space hostSpace open.
 
-space hasDirtyAreas .
 "
 Class {
 	#name : #TextBlocMorphicWindow,

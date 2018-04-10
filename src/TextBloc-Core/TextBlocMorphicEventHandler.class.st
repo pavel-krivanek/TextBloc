@@ -103,7 +103,7 @@ TextBlocMorphicEventHandler >> handleKeyUp: aMorphicEvent [
 		scanCode: aMorphicEvent scanCode;
 		
 		modifiers: (self convertKeyModifiersFromEvent: aMorphicEvent);
-		timestamp: Time millisecondClockValue;
+		timestamp: DateAndTime now;
 		position: aMorphicEvent position;
 		screenPosition: (self globalMousePositionForEvent: aMorphicEvent).
 
@@ -119,7 +119,7 @@ TextBlocMorphicEventHandler >> handleKeystroke: aMorphicEvent [
 		scanCode: aMorphicEvent scanCode;
 		
 		modifiers: (self convertKeyModifiersFromEvent: aMorphicEvent);
-		timestamp: Time millisecondClockValue;
+		timestamp: DateAndTime now;
 		position: aMorphicEvent position;
 		screenPosition: (self globalMousePositionForEvent: aMorphicEvent).
 	
@@ -202,17 +202,17 @@ TextBlocMorphicEventHandler >> handleMouseWheel: anEvent [
 			position: aMorphicEvent position;
 			screenPosition: (self globalMousePositionForEvent: aMorphicEvent);
 			direction: aMorphicEvent direction;
-			timestamp: Time millisecondClockValue.
+			timestamp: DateAndTime now.
 		
 		self enqueue: aBlEvent ]
 ]
 
 { #category : #'event handling' }
-TextBlocMorphicEventHandler >> handleWindowClose: aMorphicEvent [
+TextBlocMorphicEventHandler >> handleWindowClosed: aMorphicEvent [
 	| aBlEvent |
 	
-	aBlEvent := BlSpaceCloseEvent new
-		timestamp: Time millisecondClockValue.
+	aBlEvent := BlSpaceCloseRequest new
+		timestamp: DateAndTime now.
 	
 	self enqueue: aBlEvent
 ]
@@ -225,9 +225,9 @@ TextBlocMorphicEventHandler >> handleWindowEvent: anEvent [
 { #category : #'event handling' }
 TextBlocMorphicEventHandler >> handleWindowResize: aMorphicEvent [
 	| aBlEvent |
-	aBlEvent := BlSpaceResizeEvent new
+	aBlEvent := BlSpaceResizedEvent new
 		extent: aMorphicEvent width @ aMorphicEvent height;
-		timestamp: Time millisecondClockValue;
+		timestamp: DateAndTime now;
 		yourself.
 	self enqueue: aBlEvent
 ]
