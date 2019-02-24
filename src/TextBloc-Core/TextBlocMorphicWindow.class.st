@@ -6,7 +6,7 @@ space extent: 50@50.
 space root addChild: element.
 
 universe := BlUniverse new.
-universe pulseLoop: (CustomPulseLoop new 
+universe pulseLoop: (TextBlocPulseLoop new 
 	universe: universe;
 	yourself).
 
