@@ -161,7 +161,7 @@ TextBlocTestingHostSpace >> windowExtent [
 	on high dpi (retina) screens"
 	<return: #Point>
 
-	^ 0@0 "TODO"
+	^ 310@200 "TODO"
 ]
 
 { #category : #'host space - accessing' }
