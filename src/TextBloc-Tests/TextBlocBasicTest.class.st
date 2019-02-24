@@ -1,49 +1,21 @@
 Class {
 	#name : #TextBlocBasicTest,
-	#superclass : #TestCase,
+	#superclass : #TextBlocTest,
 	#instVars : [
-		'element',
-		'space',
-		'host',
-		'universe'
+		'element'
 	],
 	#category : #'TextBloc-Tests'
 }
 
 { #category : #running }
-TextBlocBasicTest >> content [
-
-	^ space hostSpace content
-]
-
-{ #category : #running }
-TextBlocBasicTest >> firePulse [
-
-	universe pulseLoop firePulse.
-
-]
-
-{ #category : #running }
 TextBlocBasicTest >> setUp [
 
+	super setUp.
 	element := TextBlocHelloElement new.
-	space := BlSpace new.
-	space extent: 40@10.
 	space root addChild: element.
+	
+	self firePulse.
 
-	universe := BlUniverse new.
-	universe pulseLoop: (TextBlocPulseLoop new 
-		universe: universe;
-		yourself).
-
-	host := TextBlocTestingHost new.
-	space host: host.
-	universe spaceManager addSpace: space.
-
-	space host createHostSpaceFor: space.
-	space hostSpace show.
-
-	space dispatchEvent: (BlSpaceShownEvent new space: universe).
 
 ]
 
