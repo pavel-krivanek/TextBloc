@@ -1,6 +1,8 @@
 Class {
 	#name : #TextBlocTransformationBuilder,
 	#superclass : #TextBlocAbstractBuilder,
+	#traits : 'TSpartaTransformable',
+	#classTraits : 'TSpartaTransformable classTrait',
 	#instVars : [
 		'transformation',
 		'current'
@@ -86,10 +88,4 @@ TextBlocTransformationBuilder >> set: aMatrix [
 { #category : #'as yet unclassified' }
 TextBlocTransformationBuilder >> transformation [
 	^ transformation
-]
-
-{ #category : #'as yet unclassified' }
-TextBlocTransformationBuilder >> translateBy: aPointOrNumber [
-
-	self transformation translateBy: aPointOrNumber asPoint
 ]
