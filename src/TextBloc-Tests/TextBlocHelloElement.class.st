@@ -7,6 +7,11 @@ Class {
 { #category : #'as yet unclassified' }
 TextBlocHelloElement >> drawOnTextBlocCanvas: aCanvas [
 
-	aCanvas at: 1@1 write: 'Hello TextBloc'.
+	| message | 
+	
+	message := 'Hello TextBloc'.
+	self hasFocus ifTrue: [ message := message asUppercase ].
+	
+	aCanvas at: 1@1 write: message.
 
 ]
