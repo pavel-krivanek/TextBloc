@@ -30,6 +30,10 @@ TextBlocAbstractAdapter >> addModelIn: widgetToBuild withSpecLayout: aSpec [
 ]
 
 { #category : #protocol }
+TextBlocAbstractAdapter >> addModelTo: aWidget [
+]
+
+{ #category : #protocol }
 TextBlocAbstractAdapter >> bindKeyCombination: aShortcut toAction: aBlock [
 
 
@@ -46,7 +50,11 @@ TextBlocAbstractAdapter >> borderWidth: width [
 { #category : #protocol }
 TextBlocAbstractAdapter >> buildWidget [
 
-	self subclassResponsibility 
+	| aWidget |
+	
+	aWidget := self newWidget.
+	self addModelTo: aWidget.
+	^ aWidget
 ]
 
 { #category : #protocol }
@@ -80,6 +88,12 @@ TextBlocAbstractAdapter >> hSpaceFill [
 
 { #category : #protocol }
 TextBlocAbstractAdapter >> layout: aLayout [
+]
+
+{ #category : #protocol }
+TextBlocAbstractAdapter >> newWidget [
+
+	self subclassResponsibility
 ]
 
 { #category : #protocol }

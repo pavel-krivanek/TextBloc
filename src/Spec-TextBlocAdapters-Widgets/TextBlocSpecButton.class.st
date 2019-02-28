@@ -1,39 +1,50 @@
 Class {
 	#name : #TextBlocSpecButton,
 	#superclass : #TextBlocSpecView,
+	#instVars : [
+		'label',
+		'clickBlock'
+	],
 	#category : #'Spec-TextBlocAdapters-Widgets'
 }
 
-{ #category : #'as yet unclassified' }
-TextBlocSpecButton >> bindKeyCombination: aShortcut toAction: aBlock [
+{ #category : #accessing }
+TextBlocSpecButton >> clickBlock [
+	^ clickBlock
+]
 
-	
+{ #category : #accessing }
+TextBlocSpecButton >> clickBlock: anObject [
+	clickBlock := anObject
 ]
 
 { #category : #'as yet unclassified' }
 TextBlocSpecButton >> drawOnTextBlocCanvas: aCanvas [
 
-	| extent |
-	
-	extent := self bounds.
-	
-	self hasFocus ifTrue: [ 
-	
-	aCanvas at: 1@1 write: '╔', (String withAll: ((1 to: (extent width-2)) collect: [ :e | $═ ])) asString, '╗'.
-	2 to: extent height - 1 do: [ :y |
-		aCanvas at: 1@y write: '║', (String withAll: ((1 to: (extent width-2)) collect: [ :e | $  ])) asString, '║'.
-	].
-	aCanvas at: 1@extent height write: '╚', (String withAll: ((1 to: (extent width-2)) collect: [ :e | $═ ])) asString, '╝'.
-] ifFalse: [ 
-	
-	aCanvas at: 1@1 write: '┌', (String withAll: ((1 to: (extent width-2)) collect: [ :e | $─ ])) asString, '┐'.
-	2 to: extent height - 1 do: [ :y |
-		aCanvas at: 1@y write: '│', (String withAll: ((1 to: (extent width-2)) collect: [ :e | $  ])) asString, '│'.
-	].
-	aCanvas at: 1@extent height write: '└', (String withAll: ((1 to: (extent width-2)) collect: [ :e | $─ ])) asString, '┘'.
-].
+	self drawFrameOn: aCanvas.
+	aCanvas at: 2@2 write: self label. 
+]
 
+{ #category : #accessing }
+TextBlocSpecButton >> initialize [ 
 
-
+	| clickHandler |
 	
+	super initialize.
+	
+	clickHandler := BlEventHandler
+		on: BlClickEvent
+		do: [ :evt | self clickBlock value ].
+
+	self addEventHandler: clickHandler.
+]
+
+{ #category : #accessing }
+TextBlocSpecButton >> label [
+	^ label ifNil: [ '(no label)' ]
+]
+
+{ #category : #accessing }
+TextBlocSpecButton >> label: anObject [
+	label := anObject
 ]

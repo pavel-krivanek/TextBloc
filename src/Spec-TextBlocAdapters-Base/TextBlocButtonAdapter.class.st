@@ -5,11 +5,30 @@ Class {
 }
 
 { #category : #protocol }
-TextBlocButtonAdapter >> buildWidget [
+TextBlocButtonAdapter >> addModelTo: aButton [
 
-	| button |
+	super addModelTo: aButton.
 	
-	button := TextBlocSpecButton new.
+	widget := aButton.
 	
-	^ button
+	self model label isEmptyOrNil ifFalse: [ self updateLabel ].
+	self model whenLabelChangedDo: [ self updateLabel ].
+
+	aButton clickBlock: [ self model action value ].
+	
+	
+]
+
+{ #category : #protocol }
+TextBlocButtonAdapter >> newWidget [ 
+
+	^ TextBlocSpecButton new.
+
+]
+
+{ #category : #protocol }
+TextBlocButtonAdapter >> updateLabel [
+
+	self widget label: self model label asString.
+	self widget invalidate.
 ]
