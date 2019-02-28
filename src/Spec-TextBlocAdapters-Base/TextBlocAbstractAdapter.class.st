@@ -4,6 +4,21 @@ Class {
 	#category : #'Spec-TextBlocAdapters-Base'
 }
 
+{ #category : #accessing }
+TextBlocAbstractAdapter class >> adaptingName [
+	"Override me if adapter will not follow the common pattern"
+
+	"remove 'TextBloc' part and *in general*, I will have the adapting name"
+
+	^ (self name allButFirst: 8) asSymbol
+]
+
+{ #category : #accessing }
+TextBlocAbstractAdapter class >> allAdapters [
+
+	^ self allSubclasses
+]
+
 { #category : #protocol }
 TextBlocAbstractAdapter >> add: aWidget [
 ]
@@ -31,7 +46,7 @@ TextBlocAbstractAdapter >> borderWidth: width [
 { #category : #protocol }
 TextBlocAbstractAdapter >> buildWidget [
 
-	^ self class new
+	self subclassResponsibility 
 ]
 
 { #category : #protocol }

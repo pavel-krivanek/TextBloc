@@ -1,16 +1,16 @@
 Class {
-	#name : #TextBlocSpecAdapterBindings,
+	#name : #TextBlocAdapterBindings,
 	#superclass : #SpecAdapterBindings,
 	#category : #'Spec-TextBlocAdapters-Base'
 }
 
 { #category : #queries }
-TextBlocSpecAdapterBindings >> abstractAdapterClass [
+TextBlocAdapterBindings >> abstractAdapterClass [
 	^ TextBlocAbstractAdapter
 ]
 
 { #category : #queries }
-TextBlocSpecAdapterBindings >> defaultFont [
+TextBlocAdapterBindings >> defaultFont [
 
 	^ StubFixedFont new
 ]
