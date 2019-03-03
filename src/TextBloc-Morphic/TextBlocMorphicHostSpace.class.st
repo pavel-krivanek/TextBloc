@@ -153,7 +153,8 @@ TextBlocMorphicHostSpace >> windowExtent [
 ]
 
 { #category : #'host space - accessing' }
-TextBlocMorphicHostSpace >> windowExtent: anExtent [	
+TextBlocMorphicHostSpace >> windowExtent: anExtent [
+
 	morphicWindow spaceExtent: anExtent
 ]
 

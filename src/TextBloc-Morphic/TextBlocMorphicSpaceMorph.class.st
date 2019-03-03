@@ -113,7 +113,7 @@ TextBlocMorphicSpaceMorph class >> example2 [
 TextBlocMorphicSpaceMorph >> drawOn: aCanvas [
 
 "	super drawOn: aCanvas."
-	
+
 	aCanvas clipBy: self fullBounds during: [ :aClippedCanvas |
 		aClippedCanvas drawImage: form at: self position ] 
 	
@@ -146,5 +146,15 @@ TextBlocMorphicSpaceMorph >> hostSpace: anObject [
 TextBlocMorphicSpaceMorph >> initialize [
 
 	super initialize.
-	form := Form extent: self extent * 8 depth: 32. 
+	form := Form extent: self extent depth: 32. 
+]
+
+{ #category : #accessing }
+TextBlocMorphicSpaceMorph >> layoutChanged [
+	"Don't pass to owner, since the receiver doesn't care! Improves frame rate."
+	
+	super layoutChanged.
+	form := form setExtent: self extent depth: 32.
+	
+
 ]

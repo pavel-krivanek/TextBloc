@@ -13,6 +13,7 @@ Class {
 TextBlocWindowAdapter >> addContent: aView toWindow: aSpecWindow [
 
 	space root addChild: aView.
+
 ]
 
 { #category : #accessing }
@@ -47,10 +48,10 @@ TextBlocWindowAdapter >> initialize [
 { #category : #accessing }
 TextBlocWindowAdapter >> initializeSpace [
 
-	space := BlSpace new.
-	space extent: 50@20.
-	space root layout: BlFlowLayout new horizontal.
-
+	space := TextBlocSpace new.
+	space extent: 80@25.
+	space root extent: 80@25.	
+	
 	universe := BlUniverse new.
 	universe pulseLoop: (TextBlocPulseLoop new 
 		universe: universe;

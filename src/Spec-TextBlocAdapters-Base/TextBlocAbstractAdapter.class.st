@@ -70,7 +70,20 @@ TextBlocAbstractAdapter >> dropEnabled: aBoolean [
 ]
 
 { #category : #protocol }
+TextBlocAbstractAdapter >> enabled [
+
+	^ widget enabled
+]
+
+{ #category : #protocol }
 TextBlocAbstractAdapter >> enabled: aBoolean [
+
+	widget enabled: aBoolean
+]
+
+{ #category : #'gt-inspector-extension' }
+TextBlocAbstractAdapter >> gtInspectorPreviewIn: aGLMCompositePresentation [
+	"Do nothing at the moment"
 ]
 
 { #category : #protocol }
@@ -93,7 +106,7 @@ TextBlocAbstractAdapter >> layout: aLayout [
 { #category : #protocol }
 TextBlocAbstractAdapter >> newWidget [
 
-	self subclassResponsibility
+	^ TextBlocGeneralView named: self class name
 ]
 
 { #category : #protocol }

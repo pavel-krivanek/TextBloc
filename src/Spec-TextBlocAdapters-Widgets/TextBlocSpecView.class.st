@@ -1,6 +1,9 @@
 Class {
 	#name : #TextBlocSpecView,
 	#superclass : #BlElement,
+	#instVars : [
+		'enabled'
+	],
 	#category : #'Spec-TextBlocAdapters-Widgets'
 }
 
@@ -36,4 +39,14 @@ TextBlocSpecView >> drawFrameOn: aCanvas [
 
 
 	
+]
+
+{ #category : #accessing }
+TextBlocSpecView >> enabled [
+	^ enabled
+]
+
+{ #category : #accessing }
+TextBlocSpecView >> enabled: anObject [
+	enabled := anObject
 ]

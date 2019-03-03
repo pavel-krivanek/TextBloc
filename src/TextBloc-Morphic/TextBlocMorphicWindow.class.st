@@ -63,9 +63,9 @@ TextBlocMorphicWindow >> initialize [
 	super initialize.
 
 	spaceMorph := TextBlocMorphicSpaceMorph new.
-	self addMorph: spaceMorph fullFrame: (0@0 extent: 1@1).
+	self addMorph: spaceMorph fullFrame: LayoutFrame identity. 
 	eventHandler := TextBlocMorphicEventHandler window: self.
-	preventResize := false
+	preventResize := false.
 ]
 
 { #category : #testing }
