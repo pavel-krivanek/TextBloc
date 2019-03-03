@@ -62,6 +62,17 @@ TextBlocAbstractAdapter >> color: color [
 ]
 
 { #category : #protocol }
+TextBlocAbstractAdapter >> convert: aNumberOrUnit [
+| val |
+
+val := (aNumberOrUnit isNumber 
+		ifTrue: [ (aNumberOrUnit pixels convertTo: Unit character) rounded ]
+		ifFalse: [ (aNumberOrUnit convertTo: Unit character) rounded ]) value.
+	val logCr.	
+	^ val.
+]
+
+{ #category : #protocol }
 TextBlocAbstractAdapter >> dragEnabled: aBoolean [
 ]
 

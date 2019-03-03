@@ -23,6 +23,7 @@ Class {
 SpecTextBlocSimpleDemo class >> defaultSpec [
 
 	^ SpecBoxLayout newVertical
+		spacing: 2;
 		add: #button1;
 		add: #button2;
 		add: #button3.

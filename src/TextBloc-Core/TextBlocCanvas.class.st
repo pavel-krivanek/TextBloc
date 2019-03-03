@@ -15,6 +15,16 @@ Class {
 }
 
 { #category : #'instance creation' }
+TextBlocCanvas class >> initialize [
+
+	NamedUnit
+		abbreviation: 'char'
+		name: 'character'
+		pluralName: 'characters'
+		value: (16 units: Unit pixel).
+]
+
+{ #category : #'instance creation' }
 TextBlocCanvas class >> on: aSurface [
 
 	^ self new 
