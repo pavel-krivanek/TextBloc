@@ -41,6 +41,14 @@ TextBlocSpecView >> drawFrameOn: aCanvas [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+TextBlocSpecView >> drawOnTextBlocCanvas: aCanvas [
+
+	self drawFrameOn: aCanvas.
+	
+
+]
+
 { #category : #accessing }
 TextBlocSpecView >> enabled [
 	^ enabled

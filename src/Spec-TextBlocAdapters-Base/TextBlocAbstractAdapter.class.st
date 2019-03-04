@@ -19,8 +19,16 @@ TextBlocAbstractAdapter class >> allAdapters [
 	^ self allSubclasses
 ]
 
-{ #category : #protocol }
-TextBlocAbstractAdapter >> add: aWidget [
+{ #category : #'instance creation' }
+TextBlocAbstractAdapter >> add: anAdapter [ 
+	
+	self widgetDo: [ :aWidget |
+		| child |
+		child := anAdapter asWidget.
+		child extent: 10@3.
+		aWidget layout: BlLinearLayout new.
+		aWidget addChild: child.
+		 ]
 ]
 
 { #category : #protocol }
@@ -117,7 +125,7 @@ TextBlocAbstractAdapter >> layout: aLayout [
 { #category : #protocol }
 TextBlocAbstractAdapter >> newWidget [
 
-	^ TextBlocGeneralView named: self class name
+	^ TextBlocGeneralView named: ((self class name withoutPrefix: #TextBloc) withoutSuffix: #Adapter)
 ]
 
 { #category : #protocol }

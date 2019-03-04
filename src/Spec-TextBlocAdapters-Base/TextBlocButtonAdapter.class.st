@@ -8,9 +8,7 @@ Class {
 TextBlocButtonAdapter >> addModelTo: aButton [
 
 	super addModelTo: aButton.
-	
-	widget := aButton.
-	
+		
 	self model label isEmptyOrNil ifFalse: [ self updateLabel ].
 	self model whenLabelChangedDo: [ self updateLabel ].
 

@@ -15,6 +15,14 @@ TextBlocGeneralView class >> named: aString [
 ]
 
 { #category : #accessing }
+TextBlocGeneralView >> drawOnTextBlocCanvas: aCanvas [
+
+	super drawOnTextBlocCanvas: aCanvas. 
+	
+	aCanvas at: 3@1 write: self name
+]
+
+{ #category : #accessing }
 TextBlocGeneralView >> name [
 	^ name
 ]
