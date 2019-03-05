@@ -9,8 +9,8 @@ TextBlocButtonAdapter >> addModelTo: aButton [
 
 	super addModelTo: aButton.
 		
-	self model label isEmptyOrNil ifFalse: [ self updateLabel ].
-	self model whenLabelChangedDo: [ self updateLabel ].
+	self model label isEmptyOrNil ifFalse: [ self updateLabelFor: aButton ].
+	self model whenLabelChangedDo: [ self updateLabelFor: aButton ].
 
 	aButton state: self model state.
 	self model whenStateChangedDo: [ :new | self model state: new ].
@@ -32,8 +32,8 @@ TextBlocButtonAdapter >> newWidget [
 ]
 
 { #category : #protocol }
-TextBlocButtonAdapter >> updateLabel [
+TextBlocButtonAdapter >> updateLabelFor: aWidget [
 
-	self widget label: self model label asString.
-	self widget invalidate.
+	aWidget label: (self model label).
+	aWidget invalidate
 ]

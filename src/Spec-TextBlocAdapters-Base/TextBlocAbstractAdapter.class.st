@@ -25,9 +25,10 @@ TextBlocAbstractAdapter >> add: anAdapter [
 	self widgetDo: [ :aWidget |
 		| child |
 		child := anAdapter asWidget.
-		child extent: 10@3.
+		child size: 10@3.
+		child hasParent ifFalse: [
 		aWidget layout: BlLinearLayout new.
-		aWidget addChild: child.
+		aWidget addChild: child.]
 		 ]
 ]
 
