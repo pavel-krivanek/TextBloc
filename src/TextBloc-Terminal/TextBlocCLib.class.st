@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'instance'
 	],
-	#category : #'TextBloc-CLib'
+	#category : #'TextBloc-Terminal'
 }
 
 { #category : #'instance creation' }
@@ -69,15 +69,22 @@ void enableRawMode() {
 
 { #category : #'accessing platform' }
 TextBlocCLib >> disableRawMode [
-	^ self ffiCall: #(void disableRawMode()) 
+	^ self ffiCall: #(void disableRawMode())
 ]
 
 { #category : #'accessing platform' }
 TextBlocCLib >> enableRawMode [
-	^ self ffiCall: #(void disableRawMode()) 
+	^ self ffiCall: #(void enableRawMode()) 
+]
+
+{ #category : #'accessing platform' }
+TextBlocCLib >> unix64ModuleName [
+
+	^ (('./' asFileReference absolutePath) / 'textBlocCLib.flib') asFileReference pathString
 ]
 
 { #category : #'accessing platform' }
 TextBlocCLib >> unixModuleName [
-	^ (('./' asFileReference absolutePath) / 'libpterm.flib') asFileReference pathString
+self halt.
+	^ (('./' asFileReference absolutePath) / 'textBlocCLib.flib') asFileReference pathString
 ]
