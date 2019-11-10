@@ -20,6 +20,12 @@ TextBlocRendererTestingSurface >> at: aPoint put: aCharacter [
 	
 ]
 
+{ #category : #rendering }
+TextBlocRendererTestingSurface >> at: aPoint put: aCharacter textColor: textColor backgroundColor: backgroundColor attributes: attributes [
+
+	^ self at: aPoint put: aCharacter 
+]
+
 { #category : #initialization }
 TextBlocRendererTestingSurface >> displayMatrix [
 
