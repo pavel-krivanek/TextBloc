@@ -1,6 +1,6 @@
 Class {
 	#name : #TextBlocAbstractAdapter,
-	#superclass : #AbstractAdapter,
+	#superclass : #SpAbstractAdapter,
 	#category : #'Spec-TextBlocAdapters-Base'
 }
 
@@ -72,12 +72,12 @@ TextBlocAbstractAdapter >> color: color [
 
 { #category : #protocol }
 TextBlocAbstractAdapter >> convert: aNumberOrUnit [
-| val |
 
-val := (aNumberOrUnit isNumber 
+	| val |
+
+	val := (aNumberOrUnit isNumber 
 		ifTrue: [ (aNumberOrUnit pixels convertTo: Unit character) rounded ]
 		ifFalse: [ (aNumberOrUnit convertTo: Unit character) rounded ]) value.
-	val logCr.	
 	^ val.
 ]
 

@@ -1,6 +1,6 @@
 Class {
 	#name : #TextBlocAdapterBindings,
-	#superclass : #SpecAdapterBindings,
+	#superclass : #SpAdapterBindings,
 	#category : #'Spec-TextBlocAdapters-Base'
 }
 

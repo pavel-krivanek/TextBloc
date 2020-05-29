@@ -15,7 +15,7 @@ TextBlocButtonAdapter >> addModelTo: aButton [
 	aButton state: self model state.
 	self model whenStateChangedDo: [ :new | self model state: new ].
 	aButton enabled: self model isEnabled.
-	self model whenEnabledChanged: [ :new | self model enabled: new ].
+	self model whenEnabledChangedDo: [ :new | self model enabled: new ].
 
 	aButton color: self model color.
 

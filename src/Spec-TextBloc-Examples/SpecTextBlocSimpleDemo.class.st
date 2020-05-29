@@ -10,7 +10,7 @@ SpecBindings value: TextBlocAdapterBindings during: [
 "
 Class {
 	#name : #SpecTextBlocSimpleDemo,
-	#superclass : #ComposablePresenter,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'button1',
 		'button2',
@@ -22,7 +22,7 @@ Class {
 { #category : #specs }
 SpecTextBlocSimpleDemo class >> defaultSpec [
 
-	^ SpecBoxLayout newVertical
+	^ SpBoxLayout newVertical
 		spacing: 2;
 		add: #button1;
 		add: #button2;
@@ -72,7 +72,7 @@ SpecTextBlocSimpleDemo >> initializePresenter [
 { #category : #accessing }
 SpecTextBlocSimpleDemo >> initializeWidgets [ 
 
-	button1 := ButtonPresenter new label: 'Button 1'.
-	button2 := ButtonPresenter new label: 'Button 2'.	
-	button3 := ButtonPresenter new label: 'Button 3'.
+	button1 := self newButton label: 'Button 1'.
+	button2 := self newButton label: 'Button 2'.	
+	button3 := self newButton label: 'Button 3'.
 ]

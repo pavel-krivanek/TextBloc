@@ -17,7 +17,7 @@ TextBlocWindowAdapter >> addContent: aView toWindow: aSpecWindow [
 ]
 
 { #category : #accessing }
-TextBlocWindowAdapter >> addModelIn: widgetToBuild withSpecLayout: aSpec [
+TextBlocWindowAdapter >> addPresenterIn: widgetToBuild withSpecLayout: aSpec [
 	self
 		addContent: (self model presenter buildWithSpecLayout: aSpec)
 		toWindow: widgetToBuild
@@ -26,7 +26,7 @@ TextBlocWindowAdapter >> addModelIn: widgetToBuild withSpecLayout: aSpec [
 { #category : #accessing }
 TextBlocWindowAdapter >> buildWidget [
 
-	^ SpecStubWindowView new
+	^ SpStubWindowView new
 ]
 
 { #category : #accessing }
@@ -50,7 +50,7 @@ TextBlocWindowAdapter >> initializeSpace [
 
 	space := TextBlocSpace new.
 	space extent: 80@25.
-	space root extent: 80@25.	
+	space root size: 80@25.	
 	
 	universe := BlUniverse new.
 	universe pulseLoop: (TextBlocPulseLoop new 
