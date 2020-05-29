@@ -29,6 +29,20 @@ SpecTextBlocSimpleDemo class >> defaultSpec [
 		add: #button3.
 ]
 
+{ #category : #specs }
+SpecTextBlocSimpleDemo class >> open [ 
+
+	<script>
+	
+	| app aPresenter |
+	app := SpApplication new.
+	app useBackend: #TextBloc.
+
+	aPresenter := self newApplication: app.
+
+	aPresenter openWithSpec.
+]
+
 { #category : #accessing }
 SpecTextBlocSimpleDemo >> button1 [
 	^ button1
