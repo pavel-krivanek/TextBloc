@@ -35,8 +35,8 @@ SpTextBlocCheckBoxExample >> initializePresenter [
 { #category : #accessing }
 SpTextBlocCheckBoxExample >> initializeWidgets [ 
 
-	checkBox1 := self newCheckBox.
-	checkBox2 := self newCheckBox.
-	checkBox3 := self newCheckBox.	
+	checkBox1 := self newCheckBox label: 'checkbox 1'; state: true.
+	checkBox2 := self newCheckBox label: 'checkbox 2'; state: false.
+	checkBox3 := self newCheckBox label: 'checkbox 3'	
 
 ]

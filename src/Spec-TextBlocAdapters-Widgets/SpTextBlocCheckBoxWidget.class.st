@@ -2,7 +2,8 @@ Class {
 	#name : #SpTextBlocCheckBoxWidget,
 	#superclass : #SpTextBlocWidget,
 	#instVars : [
-		'text',
+		'label',
+		'state',
 		'acceptBlock'
 	],
 	#category : #'Spec-TextBlocAdapters-Widgets'
@@ -22,17 +23,19 @@ SpTextBlocCheckBoxWidget >> acceptBlock: aBlock [
 ]
 
 { #category : #initialization }
+SpTextBlocCheckBoxWidget >> checkBoxText [
+
+	^ state 
+		ifTrue: ['✓']  
+		ifFalse: [ ' ' ]
+]
+
+{ #category : #initialization }
 SpTextBlocCheckBoxWidget >> drawOnTextBlocCanvas: aCanvas [
 
 	aCanvas pushAttributes.
 		
-	aCanvas blueBackground.
-	aCanvas fillRectangle: (Rectangle origin: 1@1 corner: self extent) with: ' '.
-
-	aCanvas whiteText.
-	aCanvas bold.
-	aCanvas at: 1@1 write: self text.
-
+	aCanvas at: 1@1 write: '[', self checkBoxText, '] ', self label.
 	
 	aCanvas popAttributes.
 ]
@@ -54,13 +57,23 @@ SpTextBlocCheckBoxWidget >> initialize [
 
 ]
 
+{ #category : #accessing }
+SpTextBlocCheckBoxWidget >> label [
+	^ label ifNil: ''
+]
+
+{ #category : #accessing }
+SpTextBlocCheckBoxWidget >> label: anObject [
+	label := anObject
+]
+
 { #category : #initialization }
 SpTextBlocCheckBoxWidget >> onKeystroke: anEvent [
 
 	self enabled ifFalse: [ ^ self ].
 
-	text := (text ifNil: ['']), anEvent char asString.
-	self acceptBlock cull: text.
+	"text := (text ifNil: ['']), anEvent char asString.
+	self acceptBlock cull: text."
 	
 	self invalidate
 
@@ -83,14 +96,12 @@ SpTextBlocCheckBoxWidget >> onMouseUp: anEvent [
 
 ]
 
-{ #category : #initialization }
-SpTextBlocCheckBoxWidget >> text [ 
-
-	^ text ifNil: '' asText
+{ #category : #accessing }
+SpTextBlocCheckBoxWidget >> state [
+	^ state
 ]
 
-{ #category : #initialization }
-SpTextBlocCheckBoxWidget >> text: aText [
-
-	text := aText
+{ #category : #accessing }
+SpTextBlocCheckBoxWidget >> state: anObject [
+	state := anObject
 ]
