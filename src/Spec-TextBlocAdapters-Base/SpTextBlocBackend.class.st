@@ -13,5 +13,5 @@ SpTextBlocBackend class >> backendName [
 { #category : #private }
 SpTextBlocBackend >> adapterBindingsClass [
 
-	^ TextBlocAdapterBindings
+	^ SpTextBlocAdapterBindings
 ]
