@@ -15,6 +15,12 @@ SpTextBlocLabelAdapter >> addModelTo: aLabel [
 ]
 
 { #category : #protocol }
+SpTextBlocLabelAdapter >> getLabelText [
+
+	^ self presenter label ifNotNil: [ :aString | aString localizedForPresenter: self presenter ]
+]
+
+{ #category : #protocol }
 SpTextBlocLabelAdapter >> newWidget [ 
 
 	^ SpTextBlocLabelWidget new.
@@ -24,6 +30,6 @@ SpTextBlocLabelAdapter >> newWidget [
 { #category : #protocol }
 SpTextBlocLabelAdapter >> updateLabelFor: aWidget [
 
-	aWidget label: (self model label).
+	aWidget label: self getLabelText.
 	aWidget invalidate
 ]

@@ -6,7 +6,8 @@ Class {
 		'clickBlock',
 		'pressed',
 		'state',
-		'color'
+		'color',
+		'icon'
 	],
 	#category : #'Spec-TextBlocAdapters-Widgets'
 }
@@ -63,15 +64,27 @@ SpTextBlocButtonWidget >> drawOnTextBlocCanvas: aCanvas [
 	aCanvas at: pos+offset write: self label. 
 
 	pressed ifFalse: [ 
-	aCanvas blackBackground.
-	aCanvas fillRectangle: (Rectangle origin: (2@self extent y) corner: (self extent x@self extent y)) with: ' '.
-	aCanvas fillRectangle: (Rectangle origin: (self extent x@2) corner: (self extent x@self extent y)) with: ' '.
-
-].
+		aCanvas blackBackground.
+		aCanvas fillRectangle: (Rectangle 
+				origin: (2@self extent y) 
+				corner: (self extent x@self extent y)) with: ' '.
+		aCanvas fillRectangle: (Rectangle 
+				origin: (self extent x@2) 
+				corner: (self extent x@self extent y)) with: ' '. ].
 
 	aCanvas popAttributes.
 		
 
+]
+
+{ #category : #accessing }
+SpTextBlocButtonWidget >> icon [
+	^ icon
+]
+
+{ #category : #accessing }
+SpTextBlocButtonWidget >> icon: anObject [
+	icon := anObject
 ]
 
 { #category : #accessing }

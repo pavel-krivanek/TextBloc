@@ -40,7 +40,8 @@ SpTextBlocAbstractFormButtonAdapter >> state [
 { #category : #protocol }
 SpTextBlocAbstractFormButtonAdapter >> updateLabelFor: aWidget [
 
-	aWidget label: self getLabelText 
+	aWidget label: self getLabelText.
+	aWidget invalidate
 ]
 
 { #category : #protocol }
@@ -54,5 +55,7 @@ SpTextBlocAbstractFormButtonAdapter >> updateWidgetState [
 
 	self widgetDo: [ :w | 
 		self presenter state = w state
-			ifFalse: [ w state: self presenter state ] ]
+			ifFalse: [ 
+				w state: self presenter state.
+				w invalidate ] ]
 ]

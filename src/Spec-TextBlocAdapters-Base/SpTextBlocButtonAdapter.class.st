@@ -9,19 +9,30 @@ SpTextBlocButtonAdapter >> addModelTo: aButton [
 
 	super addModelTo: aButton.
 		
-	self model label isEmptyOrNil ifFalse: [ self updateLabelFor: aButton ].
-	self model whenLabelChangedDo: [ self updateLabelFor: aButton ].
+	self presenter label isEmptyOrNil ifFalse: [ self updateLabelFor: aButton ].
+	self presenter whenLabelChangedDo: [ self updateLabelFor: aButton ].
 
-	aButton state: self model state.
-	self model whenStateChangedDo: [ :new | self model state: new ].
-	aButton enabled: self model isEnabled.
-	self model whenEnabledChangedDo: [ :new | self model enabled: new ].
+	aButton state: self presenter state.
+	self presenter whenStateChangedDo: [ :new | self presenter state: new ].
 
-	aButton color: self model color.
+	aButton enabled: self presenter isEnabled.
+	self presenter whenEnabledChangedDo: [ :new | self presenter enabled: new ].
 
-	aButton clickBlock: [ self model action value ].
+	aButton icon: self presenter icon.
+	self presenter whenIconChangedDo: [ :new | self presenter enabled: new ].
+
+
+	aButton color: self presenter color.
+
+	aButton clickBlock: [ self presenter action value ].
 	
 	
+]
+
+{ #category : #protocol }
+SpTextBlocButtonAdapter >> getLabelText [
+
+	^ self presenter label ifNotNil: [ :aString | aString localizedForPresenter: self presenter ]
 ]
 
 { #category : #protocol }
@@ -34,6 +45,6 @@ SpTextBlocButtonAdapter >> newWidget [
 { #category : #protocol }
 SpTextBlocButtonAdapter >> updateLabelFor: aWidget [
 
-	aWidget label: (self model label).
+	aWidget label: self getLabelText.
 	aWidget invalidate
 ]
