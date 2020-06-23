@@ -9,8 +9,11 @@ SpTextBlocAbstractFormButtonAdapter >> addModelTo: aFormButton [
 
 	super addModelTo: aFormButton.
 		
-	aFormButton label: self getLabelText.
 	aFormButton state: self presenter state.
+
+	self presenter label isEmptyOrNil ifFalse: [ self updateLabelFor: aFormButton ].
+	self presenter whenLabelChangedDo: [ self updateLabelFor: aFormButton ].
+
 
 	aFormButton clickBlock: [
 		self backendUpdatingDo: [ self updatePresenterState ] ].
@@ -37,8 +40,7 @@ SpTextBlocAbstractFormButtonAdapter >> state [
 { #category : #protocol }
 SpTextBlocAbstractFormButtonAdapter >> updateLabelFor: aWidget [
 
-	self widgetDo: [ :w |
-		w label: self getLabelText ]
+	aWidget label: self getLabelText 
 ]
 
 { #category : #protocol }
