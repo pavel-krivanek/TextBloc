@@ -13,7 +13,6 @@ Class {
 SpTextBlocTextInputFieldExample class >> defaultSpec [
 
 	^ SpBoxLayout newVertical
-		spacing: 2;
 		add: #field1;
 		add: #field2;
 		add: #field3.
@@ -57,7 +56,7 @@ SpTextBlocTextInputFieldExample >> field3: anObject [
 ]
 
 { #category : #accessing }
-SpTextBlocTextInputFieldExample >> initializePresenter [
+SpTextBlocTextInputFieldExample >> initializePresenters [
 
 	"field1 action: [ self inform: 'button 1 pressed'. field1 label: 'clicked'. ].
 	field2 action: [ self inform: 'button 2 pressed' ].

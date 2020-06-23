@@ -1,5 +1,5 @@
 Class {
-	#name : #SpTextBlocCheckBoxWidget,
+	#name : #SpTextBlocRadioButtonWidget,
 	#superclass : #SpTextBlocWidget,
 	#instVars : [
 		'label',
@@ -11,48 +11,40 @@ Class {
 }
 
 { #category : #initialization }
-SpTextBlocCheckBoxWidget >> acceptBlock [
+SpTextBlocRadioButtonWidget >> acceptBlock [
 
 	^ acceptBlock
 ]
 
 { #category : #initialization }
-SpTextBlocCheckBoxWidget >> acceptBlock: aBlock [
+SpTextBlocRadioButtonWidget >> acceptBlock: aBlock [
 
 	acceptBlock := aBlock
 
 ]
 
-{ #category : #initialization }
-SpTextBlocCheckBoxWidget >> checkBoxText [
-
-	^ (state ifNil: [ false ])
-		ifTrue: [ 'X' ]
-		ifFalse: [ ' ' ]
-]
-
 { #category : #accessing }
-SpTextBlocCheckBoxWidget >> clickBlock [
+SpTextBlocRadioButtonWidget >> clickBlock [
 	^ clickBlock
 ]
 
 { #category : #accessing }
-SpTextBlocCheckBoxWidget >> clickBlock: anObject [
+SpTextBlocRadioButtonWidget >> clickBlock: anObject [
 	clickBlock := anObject
 ]
 
 { #category : #initialization }
-SpTextBlocCheckBoxWidget >> drawOnTextBlocCanvas: aCanvas [
+SpTextBlocRadioButtonWidget >> drawOnTextBlocCanvas: aCanvas [
 
 	aCanvas pushAttributes.
 		
-	aCanvas at: 1@1 write: '[', self checkBoxText, '] ', self label.
+	aCanvas at: 1@1 write: '(', self radioButtonText, ') ', self label.
 	
 	aCanvas popAttributes.
 ]
 
 { #category : #initialization }
-SpTextBlocCheckBoxWidget >> initialize [ 
+SpTextBlocRadioButtonWidget >> initialize [ 
 	
 	super initialize.
 	
@@ -72,17 +64,22 @@ SpTextBlocCheckBoxWidget >> initialize [
 ]
 
 { #category : #accessing }
-SpTextBlocCheckBoxWidget >> label [
+SpTextBlocRadioButtonWidget >> label [
 	^ label ifNil: ''
 ]
 
 { #category : #accessing }
-SpTextBlocCheckBoxWidget >> label: anObject [
+SpTextBlocRadioButtonWidget >> label1 [
+	^ label
+]
+
+{ #category : #accessing }
+SpTextBlocRadioButtonWidget >> label: anObject [
 	label := anObject
 ]
 
 { #category : #initialization }
-SpTextBlocCheckBoxWidget >> onKeystroke: anEvent [
+SpTextBlocRadioButtonWidget >> onKeystroke: anEvent [
 
 	self enabled ifFalse: [ ^ self ].
 
@@ -94,7 +91,7 @@ SpTextBlocCheckBoxWidget >> onKeystroke: anEvent [
 ]
 
 { #category : #initialization }
-SpTextBlocCheckBoxWidget >> onMouseDown: anEvent [
+SpTextBlocRadioButtonWidget >> onMouseDown: anEvent [
 
 	self enabled ifFalse: [ ^ self ].
 	
@@ -104,18 +101,26 @@ SpTextBlocCheckBoxWidget >> onMouseDown: anEvent [
 ]
 
 { #category : #initialization }
-SpTextBlocCheckBoxWidget >> onMouseUp: anEvent [
+SpTextBlocRadioButtonWidget >> onMouseUp: anEvent [
 
 	self invalidate
 
 ]
 
+{ #category : #initialization }
+SpTextBlocRadioButtonWidget >> radioButtonText [
+
+	^ (state ifNil: [ false ])
+		ifTrue: [ '*' ]
+		ifFalse: [ ' ' ]
+]
+
 { #category : #accessing }
-SpTextBlocCheckBoxWidget >> state [
+SpTextBlocRadioButtonWidget >> state [
 	^ state
 ]
 
 { #category : #accessing }
-SpTextBlocCheckBoxWidget >> state: anObject [
+SpTextBlocRadioButtonWidget >> state: anObject [
 	state := anObject
 ]

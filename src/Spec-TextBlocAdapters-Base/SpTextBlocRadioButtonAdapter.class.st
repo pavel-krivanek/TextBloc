@@ -1,5 +1,12 @@
 Class {
 	#name : #SpTextBlocRadioButtonAdapter,
-	#superclass : #SpTextBlocAbstractAdapter,
+	#superclass : #SpTextBlocAbstractFormButtonAdapter,
 	#category : #'Spec-TextBlocAdapters-Base'
 }
+
+{ #category : #protocol }
+SpTextBlocRadioButtonAdapter >> newWidget [ 
+
+	^ SpTextBlocRadioButtonWidget new.
+
+]

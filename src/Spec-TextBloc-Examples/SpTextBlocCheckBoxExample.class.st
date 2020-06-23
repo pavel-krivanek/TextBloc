@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'checkBox1',
 		'checkBox2',
-		'checkBox3'
+		'checkBox3',
+		'button'
 	],
 	#category : #'Spec-TextBloc-Examples'
 }
@@ -13,10 +14,10 @@ Class {
 SpTextBlocCheckBoxExample class >> defaultSpec [
 
 	^ SpBoxLayout newVertical
-		spacing: 2;
 		add: #checkBox1;
 		add: #checkBox2;
-		add: #checkBox3.
+		add: #checkBox3;
+		add: #button.
 ]
 
 { #category : #specs }
@@ -27,16 +28,14 @@ SpTextBlocCheckBoxExample class >> open [
 ]
 
 { #category : #accessing }
-SpTextBlocCheckBoxExample >> initializePresenter [
-
-
-]
-
-{ #category : #accessing }
-SpTextBlocCheckBoxExample >> initializeWidgets [ 
+SpTextBlocCheckBoxExample >> initializePresenters [
 
 	checkBox1 := self newCheckBox label: 'checkbox 1'; state: true.
 	checkBox2 := self newCheckBox label: 'checkbox 2'; state: false.
-	checkBox3 := self newCheckBox label: 'checkbox 3'	
+	checkBox3 := self newCheckBox label: 'checkbox 3'; enabled: false.
+	
+	button := self newButton 
+		label: 'Change label';
+		action: [ checkBox1 label: 'changed label' ].
 
 ]

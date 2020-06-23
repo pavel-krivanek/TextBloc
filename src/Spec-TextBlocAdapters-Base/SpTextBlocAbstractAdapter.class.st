@@ -1,6 +1,9 @@
 Class {
 	#name : #SpTextBlocAbstractAdapter,
 	#superclass : #SpAbstractAdapter,
+	#instVars : [
+		'backendUpdating'
+	],
 	#category : #'Spec-TextBlocAdapters-Base'
 }
 
@@ -40,6 +43,30 @@ SpTextBlocAbstractAdapter >> addModelIn: widgetToBuild withSpecLayout: aSpec [
 
 { #category : #protocol }
 SpTextBlocAbstractAdapter >> addModelTo: aWidget [
+
+	aWidget enabled: self presenter isEnabled.
+]
+
+{ #category : #enumerating }
+SpTextBlocAbstractAdapter >> backendDetectCyclesDo: aBlock [ 
+
+	self isBackendUpdating ifTrue: [ ^ self ].
+	^ aBlock value
+]
+
+{ #category : #enumerating }
+SpTextBlocAbstractAdapter >> backendUpdatingDo: aBlock [ 
+	"This is a general mechanism to avoid colisions. 
+	 I'm adding it for the cases where a presenter can be updated in two directions: from the 
+	 user and from the backend. 
+	 A tipical example of this is SpTextPresenter>>text:, who can be updated from the UI, but 
+	 also needs to be updated from the backend to keep the text property updated."
+	| oldStatus |
+
+	oldStatus := backendUpdating.
+	backendUpdating := true.
+	aBlock ensure: [ 
+		backendUpdating := oldStatus ]
 ]
 
 { #category : #protocol }
@@ -117,6 +144,19 @@ SpTextBlocAbstractAdapter >> hShrinkWrap [
 
 { #category : #protocol }
 SpTextBlocAbstractAdapter >> hSpaceFill [
+]
+
+{ #category : #initialization }
+SpTextBlocAbstractAdapter >> initialize [
+
+	super initialize.
+	backendUpdating := false
+]
+
+{ #category : #enumerating }
+SpTextBlocAbstractAdapter >> isBackendUpdating [
+
+	^ backendUpdating
 ]
 
 { #category : #protocol }
