@@ -31,10 +31,14 @@ SpTextBlocWindowAdapter >> buildWidget [
 
 { #category : #accessing }
 SpTextBlocWindowAdapter >> close [
+
+
 ]
 
 { #category : #accessing }
 SpTextBlocWindowAdapter >> delete [
+
+	space hostSpace morphicWindow close.
 ]
 
 { #category : #accessing }
@@ -68,6 +72,12 @@ SpTextBlocWindowAdapter >> initializeSpace [
 	space dispatchEvent: (BlSpaceShownEvent new space: universe).
 
 
+]
+
+{ #category : #accessing }
+SpTextBlocWindowAdapter >> isDisplayed [ 
+
+	^ true
 ]
 
 { #category : #accessing }
