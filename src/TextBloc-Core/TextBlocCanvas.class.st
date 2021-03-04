@@ -40,7 +40,7 @@ TextBlocCanvas >> at: aPoint write: aString [
 	pos := aPoint.
 	
 	transformationStack do: [ :each |
-		pos := each transform: pos ].
+		pos := (each transform: pos) asIntegerPoint ].
 	
 	aString do: [ :e | 
 		surface at: pos put: e textColor: textColor backgroundColor: backgroundColor attributes: attributes copy.
