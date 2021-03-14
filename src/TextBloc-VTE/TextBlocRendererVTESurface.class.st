@@ -2,7 +2,9 @@ Class {
 	#name : #TextBlocRendererVTESurface,
 	#superclass : #BlHostRendererSurface,
 	#instVars : [
-		'presenter'
+		'presenter',
+		'charSize',
+		'eventHandler'
 	],
 	#category : #'TextBloc-VTE'
 }
@@ -25,22 +27,36 @@ TextBlocRendererVTESurface >> at: aPoint put: aCharacter textColor: textColor ba
 ]
 
 { #category : #rendering }
+TextBlocRendererVTESurface >> charSize [
+
+	^ charSize ifNil: [ 
+		charSize := (GtkRunLoop defer: [ 
+			self vteTerminal charWidth @ 
+			self vteTerminal charHeight ]) 
+			asIntegerPoint ]
+]
+
+{ #category : #rendering }
 TextBlocRendererVTESurface >> form [
 
 	^ form
 ]
 
 { #category : #initialization }
-TextBlocRendererVTESurface >> initializeOn: anObject [
+TextBlocRendererVTESurface >> hostSpace: aHostSpace [ 
 
-	| app | 
-	app := SpApplication new.
-	app useBackend: #Gtk. 
-	presenter := VteTerminalPresenter newApplication: app.
-	presenter openWithSpec.
+	super hostSpace: aHostSpace.
+	eventHandler hostSpace: aHostSpace.
 
-	anObject initializeForForm: self
+]
 
+{ #category : #initialization }
+TextBlocRendererVTESurface >> initializeOn: aHostRenderer [
+
+	eventHandler := TextBlocVTEEventHandler new.
+	eventHandler surface: self. 
+
+	aHostRenderer initializeForForm: self.
 
 ]
 
@@ -52,7 +68,21 @@ TextBlocRendererVTESurface >> initializeResourcesOn: aHostRenderer [
 	externalForm fillColor: Color transparent.
 "
 
-	self initializeOn: aHostRenderer
+		| app | 
+	
+	app := SpApplication new.
+	app useBackend: #Gtk. 
+	presenter := VteTerminalPresenter newApplication: app.
+	  	
+	presenter openWithSpec.
+
+	presenter eventHandler whenMouseMoveDo: [ :anEvent |
+		eventHandler handleMouseMove: anEvent  ].
+	
+	presenter eventHandler whenMouseDownDo: [ :anEvent |
+		eventHandler handleMouseDown: anEvent ].
+
+	
 ]
 
 { #category : #rendering }
@@ -67,4 +97,18 @@ TextBlocRendererVTESurface >> renderFor: aSpace [
 	"Dispatch render process through host space based on surface type"
 	
 	self hostSpace render: aSpace onFormSurface: self
+]
+
+{ #category : #initialization }
+TextBlocRendererVTESurface >> transformPoint: aPoint [
+
+	"return text coordinates of aPoint given in pixels"
+
+	^ (aPoint // self charSize) asIntegerPoint
+]
+
+{ #category : #initialization }
+TextBlocRendererVTESurface >> vteTerminal [
+
+	^ presenter adapter innerWidget 
 ]

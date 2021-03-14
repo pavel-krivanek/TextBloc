@@ -2,7 +2,8 @@ Class {
 	#name : #TextBlocVTEEventHandler,
 	#superclass : #Object,
 	#instVars : [
-		'hostSpace'
+		'hostSpace',
+		'surface'
 	],
 	#category : #'TextBloc-VTE'
 }
@@ -135,6 +136,19 @@ TextBlocVTEEventHandler >> handleKeystroke: aMorphicEvent [
 { #category : #'event handling' }
 TextBlocVTEEventHandler >> handleMouseDown: anEvent [
 
+	| aBlEvent |
+
+	aBlEvent := BlMouseDownEvent  new
+		position: (self transformPoint: anEvent position);
+		"delta: aMorphicEvent position - (self window pointToSpace: aMorphicEvent startPoint);
+		screenPosition: (self convertPosition: anEvent position);
+		modifiers: (self convertKeyModifiersFromEvent: aMorphicEvent);"
+		timestamp: DateAndTime now
+		yourself.
+		
+	self enqueue: aBlEvent 
+
+"
 	self convertMousePosition: anEvent andDo: [ :aMorphicEvent | 
 		| aBlEvent |
 		aBlEvent := BlMouseDownEvent new
@@ -144,7 +158,7 @@ TextBlocVTEEventHandler >> handleMouseDown: anEvent [
 			button: (self convertButtonFromMouseButtonEvent: aMorphicEvent);
 			timestamp: DateAndTime now
 			yourself.
-		self enqueue: aBlEvent ].
+		self enqueue: aBlEvent ]."
 	
 	window takeKeyboardFocus
 ]
@@ -161,17 +175,18 @@ TextBlocVTEEventHandler >> handleMouseLeave: anEvent [
 
 { #category : #'event handling' }
 TextBlocVTEEventHandler >> handleMouseMove: anEvent [
-	self convertMousePosition: anEvent andDo: [ :aMorphicEvent | 
-		| aBlEvent |
 
-		aBlEvent := BlMouseMoveEvent new
-			position: aMorphicEvent position;
-			delta: aMorphicEvent position - (self window pointToSpace: aMorphicEvent startPoint);
-			screenPosition: (self globalMousePositionForEvent: aMorphicEvent);
-			modifiers: (self convertKeyModifiersFromEvent: aMorphicEvent);
-			timestamp: DateAndTime now
-			yourself.
-		self enqueue: aBlEvent ]
+	| aBlEvent |
+
+	aBlEvent := BlMouseMoveEvent new
+		position: (self transformPoint: anEvent position);
+		"delta: aMorphicEvent position - (self window pointToSpace: aMorphicEvent startPoint);
+		screenPosition: (self convertPosition: anEvent position);
+		modifiers: (self convertKeyModifiersFromEvent: aMorphicEvent);"
+		timestamp: DateAndTime now
+		yourself.
+		
+	self enqueue: aBlEvent 
 ]
 
 { #category : #'event handling' }
@@ -248,6 +263,13 @@ TextBlocVTEEventHandler >> hostSpace: anObject [
 	hostSpace := anObject
 ]
 
+{ #category : #'event handling' }
+TextBlocVTEEventHandler >> initialize [ 
+
+	super initialize.
+	self halt.
+]
+
 { #category : #accessing }
 TextBlocVTEEventHandler >> pulse [ 
 
@@ -294,10 +316,29 @@ TextBlocVTEEventHandler >> readInput [
 ]
 ]
 
+{ #category : #accessing }
+TextBlocVTEEventHandler >> surface [
+
+	^ surface
+]
+
+{ #category : #accessing }
+TextBlocVTEEventHandler >> surface: anObject [
+
+	surface := anObject
+]
+
 { #category : #'event handling' }
 TextBlocVTEEventHandler >> transform: aPoint [
 
 	^ (aPoint / (8@16)) floor
+]
+
+{ #category : #'event handling' }
+TextBlocVTEEventHandler >> transformPoint: aPoint [
+ 
+	 ^ surface transformPoint: aPoint
+
 ]
 
 { #category : #accessing }
